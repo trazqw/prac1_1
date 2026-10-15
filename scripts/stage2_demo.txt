@@ -1,0 +1,6 @@
+# Скрипт этапа 2: конфигурация и обработка ошибок
+ls
+cd "$HOME"
+unknown_command
+ls one two
+exit

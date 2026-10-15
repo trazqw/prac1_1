@@ -1,0 +1,28 @@
+{
+  "name": "DeepVFS",
+  "root": {
+    "type": "directory",
+    "children": {
+      "level1": {
+        "type": "directory",
+        "children": {
+          "level2": {
+            "type": "directory",
+            "children": {
+              "level3": {
+                "type": "directory",
+                "children": {
+                  "level4.txt": {
+                    "type": "file",
+                    "encoding": "utf-8",
+                    "content": "Nested file\n"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

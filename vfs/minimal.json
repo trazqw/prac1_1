@@ -1,0 +1,13 @@
+{
+  "name": "MyVFS",
+  "root": {
+    "type": "directory",
+    "children": {
+      "readme.txt": {
+        "type": "file",
+        "encoding": "utf-8",
+        "content": "Virtual file system\n"
+      }
+    }
+  }
+}

@@ -1,0 +1,48 @@
+{
+  "name": "MyVFS",
+  "root": {
+    "type": "directory",
+    "children": {
+      "readme.txt": {
+        "type": "file",
+        "encoding": "utf-8",
+        "content": "Welcome to MyVFS\n"
+      },
+      "notes.txt": {
+        "type": "file",
+        "encoding": "utf-8",
+        "content": "Example notes\n"
+      },
+      "docs": {
+        "type": "directory",
+        "children": {
+          "guide.txt": {
+            "type": "file",
+            "encoding": "utf-8",
+            "content": "Guide\n"
+          },
+          "examples": {
+            "type": "directory",
+            "children": {
+              "commands.txt": {
+                "type": "file",
+                "encoding": "utf-8",
+                "content": "ls\ncd\nexit\n"
+              }
+            }
+          }
+        }
+      },
+      "media": {
+        "type": "directory",
+        "children": {
+          "image.bin": {
+            "type": "file",
+            "encoding": "base64",
+            "content": "AAECAwQ="
+          }
+        }
+      }
+    }
+  }
+}

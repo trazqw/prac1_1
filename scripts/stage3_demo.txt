@@ -1,0 +1,4 @@
+# Скрипт этапа 3: загрузка VFS и команды этапа 1
+ls
+cd docs
+unknown_command
