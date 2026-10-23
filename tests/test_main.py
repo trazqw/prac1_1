@@ -1,11 +1,15 @@
+"""Минимальные автоматические тесты для этапов 2–3."""
+
 import json
 import os
 import tempfile
 import unittest
+from contextlib import redirect_stdout
+from io import StringIO
 from pathlib import Path
 from unittest.mock import patch
 
-from src.main import VFSError, load_vfs, parse_command, run_startup_script
+from src.main import VFSError, VirtualShell, load_vfs, parse_command, run_startup_script
 
 
 class Variant19Tests(unittest.TestCase):
@@ -34,6 +38,35 @@ class Variant19Tests(unittest.TestCase):
             path = Path(directory) / "commands.txt"
             path.write_text("ls\nnot_a_command\ncd folder\n", encoding="utf-8")
             self.assertFalse(run_startup_script(path, "MyVFS> "))
+
+    def test_ls_cd_pwd_and_rev(self):
+        vfs = load_vfs("vfs/multiple_files.json")
+        shell = VirtualShell(vfs)
+        output = StringIO()
+        with redirect_stdout(output):
+            self.assertTrue(shell.execute("ls"))
+            self.assertTrue(shell.execute("cd docs"))
+            self.assertTrue(shell.execute("pwd"))
+            self.assertTrue(shell.execute("rev guide.txt"))
+        result = output.getvalue()
+        self.assertIn("docs/", result)
+        self.assertIn("/docs", result)
+        self.assertIn("ediuG", result)
+
+    def test_find_by_name(self):
+        shell = VirtualShell(load_vfs("vfs/multiple_files.json"))
+        output = StringIO()
+        with redirect_stdout(output):
+            self.assertTrue(shell.execute('find / -name "*.txt"'))
+        self.assertIn("/readme.txt", output.getvalue())
+        self.assertIn("/docs/guide.txt", output.getvalue())
+
+    def test_invalid_path_returns_error(self):
+        shell = VirtualShell(load_vfs("vfs/minimal.json"))
+        output = StringIO()
+        with redirect_stdout(output):
+            self.assertFalse(shell.execute("cd no_such_directory"))
+        self.assertIn("Ошибка:", output.getvalue())
 
 
 if __name__ == "__main__":
